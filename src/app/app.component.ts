@@ -8,7 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   standalone: true,
   imports: [NavbarComponent, RouterOutlet, AmplifyAuthenticatorModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'test2';
