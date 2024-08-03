@@ -28,7 +28,7 @@
 
     <!-- UI creation -->
     <form [formGroup]="adminForm">
-        <div class="row align-items-end">
+        <div class="row d-flex align-items-end">
 
             <div class="col-4">
                 <label>email</label>
@@ -39,9 +39,16 @@
                 <label>Username</label>
                 <input type="text" placeholder="john" class="form-control" id="username" formControlName="username">
             </div>
-            <div class="col-4">
-                <button type="submit" (click)="createAdministrator()" class="btn btn-primary mb-3">Create</button>
+            <div class="col-4 ">
+                <button type="submit" (click)="createAdministrator()" class="btn btn-primary">Create</button>
             </div>
         </div>
+        <div class="row d-flex align-items-end">
+            <div class="col-4">
+                <small class="text-danger" *ngIf="adminForm.get('email')?.hasError('notUnique')">ce mail existe déjà
+                    !</small>
+            </div>
+        </div>
+
     </form>
 </div>

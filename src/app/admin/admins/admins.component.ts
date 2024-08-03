@@ -25,39 +25,55 @@ export class AdminsComponent implements OnInit {
   administrators: Administrator[] = [];
 
   adminForm: FormGroup = new FormGroup({
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', Validators.required)
   });
 
   async ngOnInit(): Promise<void> {
-
-    const client = generateClient<Schema>();
-    const { data: administrators, errors } = await client.models.Administrator.list();
-    this.administrators = administrators;
+    await this.listAdministrators();
+    this.adminForm['controls']['email'].valueChanges.subscribe((email) => {
+      if (!this.unicityCheck(email)) {
+        this.adminForm['controls']['email'].setErrors({ 'notUnique': true });
+      }
+    });
   }
 
   async createAdministrator() {
+
+    if (this.adminForm.invalid) {
+      return;
+    }
     const client = generateClient<Schema>();
     const { data: newAdministrator, errors } = await client.models.Administrator.create(this.adminForm.value);
+    if (errors) { console.error(errors); return; }
 
-    if (errors) {
-      console.error(errors);
-      return;
-    } else {
-      if (newAdministrator !== null) {
-        this.administrators.push({
-          id: newAdministrator.id!,
-          email: newAdministrator.email!,
-          username: newAdministrator.username!
-        });
-      }
-    }
+    this.administrators.push({
+      id: newAdministrator!.id!,
+      email: newAdministrator!.email!,
+      username: newAdministrator!.username!
+    });
+
+    this.adminForm.reset();
   }
 
   async deleteAdministrator(administrator: any) {
     const client = generateClient<Schema>();
     const { data: deletedAdministor, errors } = await client.models.Administrator.delete(administrator);
+    if (errors) { console.error(errors); return; }
     this.administrators = this.administrators.filter((a) => a !== administrator);
+    this.adminForm.reset();
+
+  }
+
+  async listAdministrators() {
+    const client = generateClient<Schema>();
+    const { data: administrators, errors } = await client.models.Administrator.list();
+    if (errors) { console.error(errors); return; }
+    this.administrators = administrators;
+  }
+
+  unicityCheck(email: string): boolean {
+    return !(this.administrators.some((a) => a.email === email));
   }
 }
 
