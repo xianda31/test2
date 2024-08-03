@@ -10,18 +10,13 @@
 
 <app-navbar></app-navbar>
 
-<main class="main">
+<!-- <main class="main">
   <div class="content">
     <div class="left-side">
       <h1>Hello, {{ title }}</h1>
     </div>
   </div>
-</main>
+</main> -->
 <!-- <app-auth></app-auth> -->
-<amplify-authenticator>
-  <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
-    <h1>Welcome {{ user.username }}!</h1>
-    <button (click)="signOut()">Sign Out</button>
-  </ng-template>
-</amplify-authenticator>
+
 <router-outlet></router-outlet>

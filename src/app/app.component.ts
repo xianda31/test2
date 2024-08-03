@@ -8,7 +8,7 @@ import outputs from '../../amplify_outputs.json';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NavbarComponent, AmplifyAuthenticatorModule, RouterOutlet],
+  imports: [NavbarComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

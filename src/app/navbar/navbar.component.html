@@ -1,1 +1,9 @@
-<button class="btn btn-primary" routerLink='/auth' routerLinkActive="router-link-active">authentification</button>
+<div class="navbar">
+    <button class="btn btn-primary">home</button>
+    <button class="btn btn-primary" routerLink='/admins' routerLinkActive="router-link-active">admins</button>
+    <!-- <button class="btn btn-primary" routerLink='/profile' routerLinkActive="router-link-active">profile</button> -->
+    <ng-template [ngIf]="!isSignedIn">
+        <button class="btn btn-primary" routerLink='/auth' routerLinkActive="router-link-active">sign-in</button>
+    </ng-template>
+    <button class="btn btn-secondary" (click)=logOut()>log out</button>
+</div>

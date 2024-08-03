@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { signOut } from 'aws-amplify/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -10,5 +11,8 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
+  async logOut() {
+    await signOut();
+  }
+  @Input() isSignedIn: boolean = false;
 }

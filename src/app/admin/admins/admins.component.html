@@ -1,0 +1,13 @@
+<form [formGroup]="adminForm" class="row g-3 align-items-center">
+    <div class="col-auto">
+        <label>email</label>
+        <input type="text" class="form-control" id="email" name="email">
+    </div>
+    <div class="col-auto">
+        <label>Username</label>
+        <input type="text" class="form-control" id="username" name="username">
+    </div>
+    <div class="col-auto">
+        <button type="submit" (click)="createAdministrator()" class="btn btn-primary mb-3">Create</button>
+    </div>
+</form>
