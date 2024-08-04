@@ -63,34 +63,47 @@ const httpApi = new HttpApi(apiStack, "HttpApi", {
 
 // add routes to the API with a IAM authorizer and different methods
 httpApi.addRoutes({
-  path: "/items",
+  path: "/v1/{proxy+}",
   methods: [HttpMethod.GET, HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE],
   integration: httpLambdaIntegration,
   authorizer: iamAuthorizer,
 });
 
-// add a proxy resource path to the API
-httpApi.addRoutes({
-  path: "/items/{proxy+}",
-  methods: [HttpMethod.ANY],
-  integration: httpLambdaIntegration,
-  authorizer: iamAuthorizer,
-});
+// httpApi.addRoutes({
+//   path: "/members/{proxy+}",
+//   methods: [HttpMethod.GET],
+//   integration: httpLambdaIntegration,
+//   authorizer: iamAuthorizer,
+// });
+// httpApi.addRoutes({
+//   path: "/search-members",
+//   methods: [HttpMethod.GET],
+//   integration: httpLambdaIntegration,
+//   authorizer: iamAuthorizer,
+// });
 
-// add the options method to the route
-httpApi.addRoutes({
-  path: "/items/{proxy+}",
-  methods: [HttpMethod.OPTIONS],
-  integration: httpLambdaIntegration,
-});
+// // add a proxy resource path to the API
+// httpApi.addRoutes({
+//   path: "/items/{proxy+}",
+//   methods: [HttpMethod.ANY],
+//   integration: httpLambdaIntegration,
+//   authorizer: iamAuthorizer,
+// });
 
-// add route to the API with a User Pool authorizer
-httpApi.addRoutes({
-  path: "/cognito-auth-path",
-  methods: [HttpMethod.GET],
-  integration: httpLambdaIntegration,
-  authorizer: userPoolAuthorizer,
-});
+// // add the options method to the route
+// httpApi.addRoutes({
+//   path: "/items/{proxy+}",
+//   methods: [HttpMethod.OPTIONS],
+//   integration: httpLambdaIntegration,
+// });
+
+// // add route to the API with a User Pool authorizer
+// httpApi.addRoutes({
+//   path: "/cognito-auth-path",
+//   methods: [HttpMethod.GET],
+//   integration: httpLambdaIntegration,
+//   authorizer: userPoolAuthorizer,
+// });
 
 // create a new IAM policy to allow Invoke access to the API
 const apiPolicy = new Policy(apiStack, "ApiPolicy", {
@@ -98,9 +111,12 @@ const apiPolicy = new Policy(apiStack, "ApiPolicy", {
     new PolicyStatement({
       actions: ["execute-api:Invoke"],
       resources: [
-        `${httpApi.arnForExecuteApi("*", "/items")}`,
-        `${httpApi.arnForExecuteApi("*", "/items/*")}`,
-        `${httpApi.arnForExecuteApi("*", "/cognito-auth-path")}`,
+        `${httpApi.arnForExecuteApi("*", "/v1/*")}`,        // `${httpApi.arnForExecuteApi("*", "/items")}`,
+        // `${httpApi.arnForExecuteApi("*", "/items")}`,
+        // `${httpApi.arnForExecuteApi("*", "/items/*")}`,
+        // `${httpApi.arnForExecuteApi("*", "/members/*")}`,
+        // `${httpApi.arnForExecuteApi("*", "/search-members")}`,
+        // `${httpApi.arnForExecuteApi("*", "/cognito-auth-path")}`,
       ],
     }),
   ],
