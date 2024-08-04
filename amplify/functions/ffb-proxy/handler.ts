@@ -1,14 +1,14 @@
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 
-export const handler: APIGatewayProxyHandlerV2 = async (event) => {
-    console.log("event", event);
-    return {
-        statusCode: 200,
-        // Modify the CORS settings below to match your specific requirements
-        headers: {
-            "Access-Control-Allow-Origin": "*", // Restrict this to domains you trust
-            "Access-Control-Allow-Headers": "*", // Specify only the headers you need to allow
-        },
-        body: JSON.stringify("Hello from ffb handler!"),
-    };
+const url = "https://jsonplaceholder.typicode.com/users";
+
+export const handler = async () => {
+    try {
+        // fetch is available in Node.js 18 and later runtimes
+        const res = await fetch(url);
+        return res.json();
+    }
+    catch (e) {
+        console.error(e);
+        return 500;
+    }
 };
