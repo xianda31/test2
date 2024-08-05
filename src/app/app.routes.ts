@@ -4,7 +4,7 @@ import { AuthComponent } from './auth/auth/auth.component';
 import { AppComponent } from './app.component';
 import { AdminsComponent } from './admin/admins/admins.component';
 import { MembersComponent } from './members/members.component';
-import { TournamentsComponent } from './tournaments/tournaments.component';
+import { TournamentsComponent } from './tournaments/tournaments/tournaments.component';
 
 export const routes: Routes = [
     { path: 'auth', component: AuthComponent },

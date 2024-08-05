@@ -47,6 +47,20 @@ export const handler = async (event: APIGatewayProxyEvent) => {
                 } catch (e) {
                     return 500;
                 }
+            case "organizations/1438/tournament":
+                if (event.queryStringParameters?.id) {
+                    try {
+                        const res = await fetch(
+                            ffbUrl + path + "/" + event.queryStringParameters.id,
+                            { headers: { Authorization: token }, },
+                        );
+                        return res.json();
+                    } catch (e) {
+                        return 500;
+                    }
+                } else {
+                    return 500;
+                }
             default:
                 return 404;
         }

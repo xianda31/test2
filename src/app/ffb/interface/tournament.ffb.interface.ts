@@ -1,3 +1,66 @@
+export interface Organization {
+  id: number
+  code: string
+  name: string
+  name_article: any
+  type: string
+}
+
+export interface User {
+  email: string
+  is_email_verified: boolean
+  has_invalid_email: boolean
+}
+export interface Iv {
+  id: number
+  code: string
+  label: string
+  nb_pe: number
+  nb_pp: number
+  nb_pe_won: number
+  nb_pp_won: number
+}
+export interface Person {
+  id: number
+  license_number: number
+  lastname: string
+  firstname: string
+  gender: number
+  bbo_pseudo?: string
+  user: User
+  iv: Iv
+  organization: Organization      //2
+}
+
+
+export interface FFBplayer {  // was Player[]
+  id: number
+  position: number
+  email: any
+  firstname: any
+  lastname: any
+  gender: any
+  computed_amount: number
+  paid_for_team: boolean
+  zoom_registrant_id: any
+  zoom_join_url: any
+  person: Person
+  prospect: any
+}
+
+export interface FFBTeam {
+  id: number
+  name: string
+  subscribed_at: any
+  players: FFBplayer[]            // was Player[]
+}
+
+export interface ffb_teams {
+  subscription_tournament: any
+  teams: FFBTeam[]
+}
+
+
 export interface ffb_tournament {
   id: number;
   organization_id: number;
